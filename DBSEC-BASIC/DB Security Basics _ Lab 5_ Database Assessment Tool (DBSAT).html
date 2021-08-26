@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<!-- saved from url=(0116)https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat -->
+<html lang="en" class="fa-events-icons-failed"><div id="cookieStore" style="display: none;">{"SL_GWPT_Show_Hide_tmp":"1","SL_wptGlobTipTmp":"1"}</div><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="publisheddate" content="10/20/2020"><meta name="description" content="In this lab you can see how to leverage Oracle DB Assessment Tool (DBSAT)"><script async="" src="https://apex.oraclecorp.com/pls/apex/livelabs-analytics/r/files/static/v2/track.min.js"></script>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Oracle LiveLabs gives you access to Oracle&#39;s products to run a wide variety of labs and workshops; allowing you to experience our best technology, live!">
+    <title>DB Security Basics | Lab 5: Database Assessment Tool (DBSAT)</title>
+
+    <script src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/jquery-1.11.0.min.js.download"></script>
+    <script src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/jquery-ui-1.10.4.custom.js.download"></script>
+    <script src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/main.min.js.download"></script>
+
+    <link rel="stylesheet" href="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/style.min.css">
+    <link rel="shortcut icon" href="https://oracle.github.io/learning-library/common/redwood-hol/img/favicon.ico">
+<link href="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/840a321d95.css" media="all" rel="stylesheet"></head>
+
+<body style="">
+    <header class="hol-Header" role="banner">
+        <div class="hol-Header-wrap"><div class="hol-Header-actions" style="display: block;">
+                <button id="openNav" class="hol-Header-button hol-Header-button--menu rightNav" aria-label="Open Menu" title="Open Menu">
+                    <span class="hol-Header-toggleIcon"></span>
+                </button>
+            </div>
+            <div class="hol-Header-logo">DB Security Basics<div id="tutorial-title">		›		Oracle Database Security Assessment Tool (DBSAT)</div></div>
+            <a href="https://bit.ly/golivelabs" target="_blank" id="livelabs" title="Oracle LiveLabs"></a>
+            
+        <a href="mailto:livelabs-help-db_us@oracle.com?subject=Question%20about%20workshop:%20DB%20Security%20Basics" title="Need help? Send us an email." id="need_help" tabindex="0">?</a></div>
+    </header>
+
+    <div id="container">
+        <div id="leftNav" class="open">
+            <div id="toc"></div>
+        <div id="leftNav-toc" class="open scroll" style="max-height: 873px;"><ul class="hol-Nav-list"><li id="tut-intro" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=intro"><div>Introduction</div></a><div id="toc0" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=intro#AboutthisWorkshop"><li class="toc-item" data-unique="AboutthisWorkshop">About this Workshop</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=intro#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-pre-register-free-tier-account" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=pre-register-free-tier-account"><div>Getting Started</div></a><div id="toc1" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=pre-register-free-tier-account#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=pre-register-free-tier-account#STEP1:CreateYourFreeTrialAccount"><li class="toc-item" data-unique="STEP1:CreateYourFreeTrialAccount">STEP 1: Create Your Free Trial Account</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=pre-register-free-tier-account#STEP2:SignintoYourAccount"><li class="toc-item" data-unique="STEP2:SignintoYourAccount">STEP 2: Sign in to Your Account</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=pre-register-free-tier-account#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-generate-ssh-keys" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys"><div>Lab 1: Generate SSH Keys</div></a><div id="toc2" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys#Option1:OracleCloudShell"><li class="toc-item" data-unique="Option1:OracleCloudShell">Option 1:  Oracle Cloud Shell</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys#Option2:MacOS"><li class="toc-item" data-unique="Option2:MacOS">Option 2:  MacOS</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys#Option3:Windows10"><li class="toc-item" data-unique="Option3:Windows10">Option 3:  Windows 10</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys#Option4a:PriorWindowsVersionsGitforWindows"><li class="toc-item" data-unique="Option4a:PriorWindowsVersionsGitforWindows">Option 4a: Prior Windows Versions - Git for Windows</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys#Option4b:WindowsVersionsPuTTY"><li class="toc-item" data-unique="Option4b:WindowsVersionsPuTTY">Option 4b: Windows Versions - PuTTY</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys#Option5:SSHKeysforLinux"><li class="toc-item" data-unique="Option5:SSHKeysforLinux">Option 5: SSH Keys for Linux</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=generate-ssh-keys#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-prepare-setup" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=prepare-setup"><div>Lab 2: Prepare Setup</div></a><div id="toc3" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=prepare-setup#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=prepare-setup#STEP1:DownloadOracleResourceManager(ORM)stackzipfile"><li class="toc-item" data-unique="STEP1:DownloadOracleResourceManager(ORM)stackzipfile">STEP 1: Download Oracle Resource Manager (ORM) stack zip file</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=prepare-setup#STEP2:AddingSecurityRulestoanExistingVCN"><li class="toc-item" data-unique="STEP2:AddingSecurityRulestoanExistingVCN">STEP 2: Adding Security Rules to an Existing VCN   </li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=prepare-setup#STEP3:SetupCompute"><li class="toc-item" data-unique="STEP3:SetupCompute">STEP 3: Setup Compute   </li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=prepare-setup#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-setup-compute" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute"><div>Lab 3: Environment Setup</div></a><div id="toc4" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Step1A:CreateStack:ComputeNetworking"><li class="toc-item" data-unique="Step1A:CreateStack:ComputeNetworking">Step 1A: Create Stack:  Compute + Networking</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Step1B:CreateStack:Computeonly"><li class="toc-item" data-unique="Step1B:CreateStack:Computeonly">Step 1B: Create Stack:  Compute only</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Step2:TerraformPlan(OPTIONAL)"><li class="toc-item" data-unique="Step2:TerraformPlan(OPTIONAL)">Step 2: Terraform Plan (OPTIONAL)</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Step3:TerraformApply"><li class="toc-item" data-unique="Step3:TerraformApply">Step 3: Terraform Apply</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Step4:HowtoEstablishaTerminalConnectiontoyourInstance"><li class="toc-item" data-unique="Step4:HowtoEstablishaTerminalConnectiontoyourInstance">Step 4: How to Establish a Terminal Connection to your Instance</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Appendix1:TerraformandResourceManager"><li class="toc-item" data-unique="Appendix1:TerraformandResourceManager">Appendix 1:  Terraform and Resource Manager</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Appendix2:TroubleshootingTips"><li class="toc-item" data-unique="Appendix2:TroubleshootingTips">Appendix 2: Troubleshooting Tips</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=setup-compute#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-init-start-env-freetier" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=init-start-env-freetier"><div>Lab 4: Initialize Environment</div></a><div id="toc5" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=init-start-env-freetier#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=init-start-env-freetier#STEP1:AccesstheGraphicalRemoteDesktop(Preferred)"><li class="toc-item" data-unique="STEP1:AccesstheGraphicalRemoteDesktop(Preferred)">STEP 1: Access the Graphical Remote Desktop (Preferred)</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=init-start-env-freetier#STEP2:EnableCopyPastefromLocaltoRemoteDesktop(noVNCclipboard)"><li class="toc-item" data-unique="STEP2:EnableCopyPastefromLocaltoRemoteDesktop(noVNCclipboard)">STEP 2: Enable Copy/Paste from Local to Remote Desktop (noVNC clipboard)</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=init-start-env-freetier#STEP3:OpenWorkshopGuidefromtheRemoteDesktop"><li class="toc-item" data-unique="STEP3:OpenWorkshopGuidefromtheRemoteDesktop">STEP 3: Open Workshop Guide from the Remote Desktop</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=init-start-env-freetier#STEP4:LogintoHostusingSSHKeyBasedAuthentication(Optional)"><li class="toc-item" data-unique="STEP4:LogintoHostusingSSHKeyBasedAuthentication(Optional)">STEP 4: Login to Host using SSH Key Based Authentication (Optional)</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=init-start-env-freetier#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-dbsat" class="selected"><div><div class="arrow">-</div><div>Lab 5: Database Assessment Tool (DBSAT)</div><div id="toc6" class="toc"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP1:InstallingDBSAT"><li class="toc-item active" data-unique="STEP1:InstallingDBSAT">STEP 1: Installing DBSAT</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP2:Collectdata"><li class="toc-item" data-unique="STEP2:Collectdata">STEP 2: Collect data</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP3:Generatethereport"><li class="toc-item" data-unique="STEP3:Generatethereport">STEP 3: Generate the report</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP4:AnalyzetheReportSummary"><li class="toc-item" data-unique="STEP4:AnalyzetheReportSummary">STEP 4: Analyze the Report - Summary</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP5:AnalyzetheReportFindings"><li class="toc-item" data-unique="STEP5:AnalyzetheReportFindings">STEP 5: Analyze the Report - Findings</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP6:AnalyzetheReportDetails"><li class="toc-item" data-unique="STEP6:AnalyzetheReportDetails">STEP 6: Analyze the Report - Details</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP7:DiscoverSensitiveData"><li class="toc-item" data-unique="STEP7:DiscoverSensitiveData">STEP 7: Discover Sensitive Data</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP8:AnalyzetheDiscovererReportSummary"><li class="toc-item" data-unique="STEP8:AnalyzetheDiscovererReportSummary">STEP 8: Analyze the Discoverer Report - Summary</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP9:AdvancedDiscovererGettingintodbsatconfigDiscoveryparameters"><li class="toc-item" data-unique="STEP9:AdvancedDiscovererGettingintodbsatconfigDiscoveryparameters">STEP 9: Advanced Discoverer - Getting into dbsat.config Discovery parameters</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP10:AdvancedDiscovererGettingintoPatternfilesSensitiveTypesandCategories"><li class="toc-item" data-unique="STEP10:AdvancedDiscovererGettingintoPatternfilesSensitiveTypesandCategories">STEP 10: Advanced Discoverer - Getting into Pattern files, Sensitive Types, and Categories</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP11:AdvancedDiscovererPatternFiles"><li class="toc-item" data-unique="STEP11:AdvancedDiscovererPatternFiles">STEP 11: Advanced Discoverer - Pattern Files</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP12:ProcessingDBSATreportJSONoutput"><li class="toc-item" data-unique="STEP12:ProcessingDBSATreportJSONoutput">STEP 12: Processing DBSAT report JSON output</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#STEP13:(Optional)UninstallingDBSAT"><li class="toc-item" data-unique="STEP13:(Optional)UninstallingDBSAT">STEP 13: (Optional) Uninstalling DBSAT</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#Appendix:AbouttheProduct"><li class="toc-item" data-unique="Appendix:AbouttheProduct">Appendix: About the Product</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#WanttoLearnMore?"><li class="toc-item" data-unique="WanttoLearnMore?">Want to Learn More?</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-nne" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne"><div>Lab 6: Native Network Encryption (NNE)</div></a><div id="toc7" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne#STEP1:Checkthecurrentnetworkconfiguration"><li class="toc-item" data-unique="STEP1:Checkthecurrentnetworkconfiguration">STEP 1: Check the current network configuration</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne#STEP2:GenerateandcaptureSQLtraffic"><li class="toc-item" data-unique="STEP2:GenerateandcaptureSQLtraffic">STEP 2: Generate and capture SQL traffic</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne#STEP3:Enablethenetworkencryption"><li class="toc-item" data-unique="STEP3:Enablethenetworkencryption">STEP 3: Enable the network encryption</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne#STEP4:(Optional)Disablethenetworkencryption"><li class="toc-item" data-unique="STEP4:(Optional)Disablethenetworkencryption">STEP 4: (Optional) Disable the network encryption</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne#Appendix:AbouttheProduct"><li class="toc-item" data-unique="Appendix:AbouttheProduct">Appendix: About the Product</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne#WanttoLearnMore?"><li class="toc-item" data-unique="WanttoLearnMore?">Want to Learn More?</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-priv-analysis" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=priv-analysis"><div>Lab 7: Privilege Analysis</div></a><div id="toc8" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=priv-analysis#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=priv-analysis#STEP1:Capturetheworkloadtoanalyze"><li class="toc-item" data-unique="STEP1:Capturetheworkloadtoanalyze">STEP 1: Capture the workload to analyze</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=priv-analysis#STEP2:Analyzetheworkloadcaptured"><li class="toc-item" data-unique="STEP2:Analyzetheworkloadcaptured">STEP 2: Analyze the workload captured</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=priv-analysis#STEP3:(Optional)Dropthecapture"><li class="toc-item" data-unique="STEP3:(Optional)Dropthecapture">STEP 3: (Optional) Drop the capture</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=priv-analysis#Appendix:AbouttheProduct"><li class="toc-item" data-unique="Appendix:AbouttheProduct">Appendix: About the Product</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=priv-analysis#WanttoLearnMore?"><li class="toc-item" data-unique="WanttoLearnMore?">Want to Learn More?</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=priv-analysis#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-unified-auditing" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing"><div>Lab 8: Unified Auditing</div></a><div id="toc9" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#STEP1:Displaythecurrentauditsettings"><li class="toc-item" data-unique="STEP1:Displaythecurrentauditsettings">STEP 1: Display the current audit settings</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#STEP2:AuditNonAppUsage"><li class="toc-item" data-unique="STEP2:AuditNonAppUsage">STEP 2: Audit Non App Usage</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#STEP3:AuditDatabaseRoleUsage"><li class="toc-item" data-unique="STEP3:AuditDatabaseRoleUsage">STEP 3: Audit Database Role Usage</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#STEP4:AuditDataPumpUsage"><li class="toc-item" data-unique="STEP4:AuditDataPumpUsage">STEP 4: Audit Data Pump Usage</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#STEP5:CleanuptheUnifiedAuditingConfiguration"><li class="toc-item" data-unique="STEP5:CleanuptheUnifiedAuditingConfiguration">STEP 5: Cleanup the Unified Auditing Configuration</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#Appendix:AbouttheProduct"><li class="toc-item" data-unique="Appendix:AbouttheProduct">Appendix: About the Product</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#WanttoLearnMore?"><li class="toc-item" data-unique="WanttoLearnMore?">Want to Learn More?</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=unified-auditing#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-tsdp" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=tsdp"><div>Lab 9: Transparent Sensitive Data Protection (TSDP)</div></a><div id="toc10" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=tsdp#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=tsdp#STEP1:PreparetheTSDPEnvironmentfortheLabs"><li class="toc-item" data-unique="STEP1:PreparetheTSDPEnvironmentfortheLabs">STEP 1: Prepare the TSDP Environment for the Labs</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=tsdp#STEP2:CreateaTSDPPolicy"><li class="toc-item" data-unique="STEP2:CreateaTSDPPolicy">STEP 2: Create a TSDP Policy</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=tsdp#STEP3:(Optional)ResettheTSDPLabsEnvironment"><li class="toc-item" data-unique="STEP3:(Optional)ResettheTSDPLabsEnvironment">STEP 3: (Optional) Reset the TSDP Labs Environment</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=tsdp#Appendix:AbouttheProduct"><li class="toc-item" data-unique="Appendix:AbouttheProduct">Appendix: About the Product</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=tsdp#WanttoLearnMore?"><li class="toc-item" data-unique="WanttoLearnMore?">Want to Learn More?</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=tsdp#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li><li id="tut-need-help-freetier" tabindex="0"><div><div class="arrow">+</div><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=need-help-freetier"><div>Need Help?</div></a><div id="toc11" class="toc" style="display: none;"><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=need-help-freetier#Introduction"><li class="toc-item" data-unique="Introduction">Introduction</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=need-help-freetier#HowtoFormatYourSupportEmailRequest"><li class="toc-item" data-unique="HowtoFormatYourSupportEmailRequest">How to Format Your Support Email Request</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=need-help-freetier#CantLogintoOracleCloud"><li class="toc-item" data-unique="CantLogintoOracleCloud">Can't Login to Oracle Cloud</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=need-help-freetier#CantCreateanOracleDatabase?NothinginYourCompartment?"><li class="toc-item" data-unique="CantCreateanOracleDatabase?NothinginYourCompartment?">Can't Create an Oracle Database? Nothing in Your Compartment?</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=need-help-freetier#ConnectivityIssues?UnabletoUploadDataorConnecttotheDatabase?"><li class="toc-item" data-unique="ConnectivityIssues?UnabletoUploadDataorConnecttotheDatabase?">Connectivity Issues? Unable to Upload Data or Connect to the Database?</li></a></ul><ul><a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=need-help-freetier#Acknowledgements"><li class="toc-item" data-unique="Acknowledgements">Acknowledgements</li></a></ul></div></div></li></ul></div></div>
+        <div id="contentBox" style="min-height: 731px;" class="open">
+            <main class="hol-Content" id="module-content"><article><h1 id="oracledatabasesecurityassessmenttooldbsat">Oracle Database Security Assessment Tool (DBSAT)</h1>
+<section><div name="Introduction" data-unique="Introduction"></div><h2 id="introduction">Introduction</h2><p>This workshop introduces the functionality of Oracle Database Security Assessment Tool (DBSAT). It gives the user an opportunity to learn how to use this feature to assess all the security components of a database.</p><p><em>Estimated Lab Time:</em> 110 minutes</p><p><em>Version tested in this lab:</em> Oracle DBSAT 2.2.1</p><h3 id="videopreview">Video Preview</h3><p>Watch a preview of "<em>Understanding DBSAT (April 2018)</em>" <div class="video-container"><iframe src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/XsPuiCPcyA0.html" frameborder="0" allowfullscreen=""></div></iframe></div></p><h3 id="objectives">Objectives</h3><p>In this lab, you will be able to play with the DBSAT and understand how it works and the immediate value it provides. Many customers already benefited from running DBSAT and were able to improve their security posture. DBSAT helps you to identify the overall security posture, who are the users and their entitlements, and to know how much and where is sensitive data located.</p><h3 id="prerequisites">Prerequisites</h3><p>This lab assumes you have:</p><ul>
+<li>A Free Tier, Paid or LiveLabs Oracle Cloud account</li>
+<li>SSH Private Key to access the host via SSH</li>
+<li>You have completed:<ul>
+<li>Lab: Generate SSH Keys (<em>Free-tier</em> and <em>Paid Tenants</em> only)</li>
+<li>Lab: Prepare Setup (<em>Free-tier</em> and <em>Paid Tenants</em> only)</li>
+<li>Lab: Environment Setup</li>
+<li>Lab: Initialize Environment</li></ul></li>
+</ul><h3 id="labtimingestimated">Lab Timing (estimated)</h3><table>
+<thead>
+<tr>
+<th>Step No.</th>
+<th>Feature</th>
+<th>Approx. Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Installing DBSAT</td>
+<td>&lt;5 minutes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Collect data</td>
+<td>5 minutes</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Generate the report</td>
+<td>5 minutes</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Analyze the Report - Summary</td>
+<td>&lt;5 minutes</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Analyze the Report - Findings</td>
+<td>&lt;5 minutes</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Analyze the Report - Details</td>
+<td>15 minutes</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Discover Sensitive Data</td>
+<td>15 minutes</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Analyze the Discoverer Report - Summary</td>
+<td>5 minutes</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Advanced Discoverer - Getting into dbsat.config Discovery parameters</td>
+<td>15 minutes</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Advanced Discoverer - Getting into Pattern files, Sensitive Types, and Categories</td>
+<td>10 minutes</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Advanced Discoverer - Pattern Files</td>
+<td>15 minutes</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Processing DBSAT report JSON output</td>
+<td>10 minutes</td>
+</tr>
+<tr>
+<td>13</td>
+<td>(Optional) Uninstalling DBSAT</td>
+<td>&lt;5 minutes</td>
+</tr>
+</tbody>
+</table></section>
+
+
+
+
+
+
+
+
+
+
+
+
+<section><div name="STEP1:InstallingDBSAT" data-unique="STEP1:InstallingDBSAT"></div><button id="btn_toggle" class="hol-ToggleRegions minus">Collapse All Steps</button><h2 id="step1installingdbsat" class="minus" tabindex="0"><strong>STEP 1</strong>: Installing DBSAT</h2><ol style="">
+<li><p>Open a SSH session on your <strong>DBSec-Lab VM as <em>oracle</em> user</strong></p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs nginx"><span class="copy-code"><span class="hljs-attribute">sudo</span> su - oracle</span></code></pre></li>
+<li><p>Go to the scripts directory</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs bash"><span class="copy-code"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$DBSEC_LABS</span>/dbsat</span></code></pre></li>
+<li><p>Create a directory to install DBSAT</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">mkdir</span> dbsat<span class="hljs-number">221</span></span></code></pre></li>
+<li><p>Unzip the DBSAT zip file</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">unzip</span> /u<span class="hljs-number">01</span>/app/sources/dbsat-<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">1</span>.zip -d dbsat<span class="hljs-number">221</span></span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-001.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>For this lab, the DBSAT zip file has already been downloaded to DBSec-Lab VM into the folder <strong>/u01/app/sources</strong></li>
+<li>But Oracle DBSAT can be found officially at <a href="https://support.oracle.com/epmos/faces/DocumentDisplay?id=2138254.1" target="_blank">Oracle Support Document 2138254.1</a></li></ul></li>
+</ol></section>
+
+<section><div name="STEP2:Collectdata" data-unique="STEP2:Collectdata"></div><h2 id="step2collectdata" class="minus" tabindex="0"><strong>STEP 2</strong>: Collect data</h2><ol style="">
+<li><p>Go to the dbsat directory just created</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs bash"><span class="copy-code"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$DBSEC_LABS</span>/dbsat/dbsat221</span></code></pre></li>
+<li><p>Let's start by examining all DBSAT execution parameters</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">./dbsat</span></code></pre></li>
+<li><p>You should see this</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-002.png" alt=""></figure></p></li>
+<li><p>Let’s run DBSAT to collect data from <strong>pdb1</strong></p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code">.<span class="hljs-operator">/</span>dbsat <span class="hljs-keyword">collect</span> dbsat_admin<span class="hljs-variable">@pdb1</span> pdbhol</span></code></pre>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>DBSAT will not create any objects in the database</li>
+<li>DBSAT only executes queries similar to the ones a Database Administrator would be executing in his daily tasks</li>
+<li>The time it takes to complete depends on the hardware and the metadata that needs to be collected</li>
+<li>This lab was created to provide some findings for analysis and depending on the available hardware it might take between 1 to 3 minutes</li></ul></li>
+<li><p>When prompted, enter the password "<em><code>Oracle123</code></em>"</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">Oracle123</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-003.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>Please note that <code>DBSAT_ADMIN</code> user is pre-seeded in this database</li>
+<li>In case you need to create it on a different environment, you’ll find the required privileges and roles in the product documentation</li></ul></li>
+<li><p>A file named <strong>pdbhol.zip</strong> is created in the directory and it's not required to unzip the file because DBSAT Reporter will take either the JSON file (if –n was used) or the zip file!</p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>In order to collect complete data, as it executes operating system commands to collect process and file system information, the DBSAT collector must run on the server that contains the database</li>
+<li>In addition, the DBSAT collector must be run as an OS user with read permissions on files and directories under <code>ORACLE_HOME</code>, and if set up, <code>TNS_ADMIN</code></li></ul></li>
+</ol></section>
+
+<section><div name="STEP3:Generatethereport" data-unique="STEP3:Generatethereport"></div><h2 id="step3generatethereport" class="minus" tabindex="0"><strong>STEP 3</strong>: Generate the report</h2><ol style="">
+<li><p>Let’s run dbsat to analyze data from the pdbhol file</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">./dbsat report pdbhol</span></code></pre>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>You do not need to include the .zip extension</li>
+<li>DBSAT reporter will take as input the file generated by the collector (json or zip file) and will produce one zip file containing four reports in different formats: HTML, spreadsheet, JSON, and text</li>
+<li>If you choose not to encrypt data, the four report files are generated in the specified directory</li></ul></li>
+<li><p>DBSAT will prompt the user for one password – the password used when running the collector so it can unzip the file – followed by another password prompt that will be used to protect the reports zip file, plus the password confirmation: stick to "<em><code>Oracle123</code></em>"</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">Oracle123</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-004.png" alt=""></figure></p></li>
+<li><p>You will end up with the results of the analysis inside a password protected zip file named <code>pdbhol_report.zip</code></p></li>
+<li><p>Let’s unzip the file to view the reports</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs python"><span class="copy-code">unzip pdbhol_report.<span class="hljs-built_in">zip</span></span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-005.png" alt=""></figure></p></li>
+<li><p>For the purpose of this lab, and as we are not using a desktop environment, copy the html file to the glassfish server directory by executing the script. This will make the html report accessible by your laptop browser</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">. ../dbsat_use_glassfish_webserver.sh</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-006.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>This script will copy the html report to the glassfish webserver to make it easier for you to see the report</li>
+<li>For real life cases you won’t need to copy file to glassfish, but just unzip the files and open the html</li></ul></li>
+<li><p><strong>Copy the URL provided as the output fo the next step!</strong></p></li>
+</ol></section>
+
+<section><div name="STEP4:AnalyzetheReportSummary" data-unique="STEP4:AnalyzetheReportSummary"></div><h2 id="step4analyzethereportsummary" class="minus" tabindex="0"><strong>STEP 4</strong>: Analyze the Report - Summary</h2><p style="">In this exercise, you will learn how to how to analyze the <strong>Database Security Risk Assessment Report</strong>. We will dive into the summary table, different types of risks, the anatomy of a finding and the actual findings.</p><p style="">Please take a couple of minutes to scroll through the HTML report. You can click the links in the summary table to go to a specific section or use the navigation arrows at the bottom right.</p><ol style="">
+<li><p>Open your web browser and paste the URL provided in the previous step (<em><code>http://&lt;DBSec_Lab_Public_IP&gt;:8080/hr_prod_pdb1/dbsat/pdbhol_report.html</code></em>)</p></li>
+<li><p>The report contains informational tables, like the one shown below and findings</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-007.png" alt=""></figure></p>
+<p><strong>Note</strong>: Informational tables provide either summary information or additional context to the findings in the same section</p></li>
+<li><p>At the top of the report, you will find information about the Collector and Reporter run details as the date of data collection and the date of report generation along with the reporter version</p></li>
+</ol><ul style="">
+<li><p>Follows the Database Identity information where you will find details about the target database</p></li>
+<li><p>Then the Summary table presents all the findings per section/domain along with their severity level</p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>Having a “Total” of less than 80 findings might indicate that there were some issues collecting data</li>
+<li>You’ll find more details about the reasons at the bottom of the HTML report</li>
+<li>The collector generated JSON file can also be used for further troubleshooting</li>
+<li>If you run DBSAT against ADW/ATP or run the collector remotely you will get less than 80 findings</li>
+<li>The main reason for this is that we skip the collection of OS related findings and findings that depend on reading files from the operating system</li></ul></li>
+</ul></section>
+
+
+
+
+<section><div name="STEP5:AnalyzetheReportFindings" data-unique="STEP5:AnalyzetheReportFindings"></div><h2 id="step5analyzethereportfindings" class="minus" tabindex="0"><strong>STEP 5</strong>: Analyze the Report - Findings</h2><p style="">In this exercise, you will learn what a <strong>Finding</strong> is.</p><p style="">The DBSAT reporter resulting analysis is reported in units called Findings, and in each "Finding" you see:</p><ol style="">
+<li><p><strong>Unique ID for the Rule</strong>
+The ID has two parts: the prefix identifies the report section, and the suffix identifies the specific rule</p></li>
+<li><p><strong>Status</strong>
+You can use the status values as guidelines for implementing DBSAT recommendations and they can be used to prioritize and schedule changes based on the level of risk, and what it might mean to your organization - for example, High Risk might require immediate remedial action, whereas other risks might be fixed during scheduled downtime, or bundled together with other maintenance activities:</p>
+<ul>
+<li>Pass (no error found)</li>
+<li>Evaluate (needs manual analysis)</li>
+<li>Low Risk</li>
+<li>Medium Risk</li>
+<li>High Risk</li>
+<li>Advisory (improve security posture by enabling additional security features and technology. Poses and opportunity for improvement)</li></ul></li>
+<li><p><strong>Summary</strong>
+Provides a brief summary of the finding. When the finding is informational, the summary typically reports only the number of data elements that were examined.</p></li>
+<li><p><strong>Details</strong>
+Provides detailed information to explain the finding summary, typically results from the assessed database, followed by any recommendations for changes.</p></li>
+<li><p><strong>Remarks</strong>
+Explains the reason for the rule and recommended actions for remediation.</p></li>
+<li><p><strong>References</strong>
+If the finding is related to a CIS Oracle Database Benchmark 12c v2.0.0 recommendation, Oracle Database 12c STIG v1 r10 or related to a GDPR Article/Recitals, it will be mentioned here</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-008.png" alt=""></figure></p></li>
+</ol></section>
+
+
+
+<section><div name="STEP6:AnalyzetheReportDetails" data-unique="STEP6:AnalyzetheReportDetails"></div><h2 id="step6analyzethereportdetails" class="minus" tabindex="0"><strong>STEP 6</strong>: Analyze the Report - Details</h2><p style="">In this exercise, you will be guided by relevant DBSAT findings. This will provide you with knowledge on what DBSAT validates and the value it provides</p><ol style="">
+<li><p>Let’s have a look at the "Basic Information" and look after the <strong>High Risk</strong> finding (red line)</p>
+<ul>
+<li><p>Click <strong>Basic Information</strong> in the Summary table</p></li>
+<li><p>And scroll to <strong>INFO.PATCH</strong></p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-009.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>This is a <strong>Finding</strong></li>
+<li>It seems that the database needs to be patched! This is an important finding as it is one of the most common ways hackers get into databases. They exploit vulnerable, unpatched, databases</li></ul></li></ul></li>
+<li><p>You can always return to the Summary table by clicking <strong>TOP</strong> on the navigation panel (bottom right)</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-010.png" alt=""></figure></p></li>
+<li><p>Let’s have a look at "User Accounts" and search for the finding marked as <strong>Medium Risk</strong> (orange line)</p>
+<ul>
+<li><p>Click the <strong>User Accounts</strong> link in the Summary table</p></li>
+<li><p>And scroll to <strong>USER.SAMPLE</strong></p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-011.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>DBSAT pointed out that we have users sample schemas <code>HR</code> and <code>SCOTT</code>. Should <code>HR</code> and <code>SCOTT</code> be around in this database?</li>
+<li>These sample schemas should not be in production databases… Keep this in mind!</li></ul></li></ul></li>
+<li><p>What else can DBSAT show me on users? I’m curious about <code>SCOTT</code> and <code>HR</code>… Scroll down or search for <strong>USER.INACTIVE</strong></p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-012.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>There are several user accounts with unlimited <code>INACTIVE_ACCOUNT_TIME</code>, including <code>SCOTT</code></li>
+<li>Maybe we should investigate further?
+Is it the case that these users have a user profile that do not impose limits on <code>INACTIVE_ACCOUT_TIME</code>?
+You can scroll up to the <strong>USER ACCOUNTS</strong> table and have a look at the profile that is set for these users <code>DEFAULT</code></li></ul>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-013.png" alt=""></figure></p>
+<ul>
+<li>All Users belong to the <code>DEFAULT</code> Profile</li></ul></li>
+<li><p>Search for <strong>User Profiles</strong> (or scroll down to that table)</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-014.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>All database users are on the <code>DEFAULT</code> profile which has <code>INACTIVE_ACCOUNT_TIME = UNLIMITED</code></li>
+<li>The <code>INACTIVE_ACCOUNT_TIME</code> profile parameter locks a user account that has not logged in to the database instance in a specified number of days</li></ul></li>
+<li><p>See the next finding – <strong>USER.NOEXPIRE</strong></p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-015.png" alt=""></figure></p>
+<p><strong>Note</strong>: Findings in this section will provide a view on who are the users in my database, their status, password settings and user profiles</p></li>
+<li><p>Let’s get back to the top, but this time we will review what is going on in the <strong>“Privileges and Roles”</strong> section. This section shows the largest number of findings (22). Click <strong>TOP</strong> on the navigation panel (bottom right)</p></li>
+<li><p>Followed by clicking the <strong>Privileges and Roles</strong> link</p></li>
+<li><p>This section provides information about System Privileges, Roles, Account Management Privileges, Privilege Management Privileges, Database Management Privileges, Audit Management Privileges, Data Access Privileges, Access Control Exemption Privileges, Access to Password Verifier Tables, Access to Restricted Objects, Users with DBA role, Users with Administrative privileges among others</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-016.png" alt=""></figure></p>
+<p><strong>Note</strong>: This provides a powerful insight into what can users do that typically is not addressed in everyday vulnerability management products</p></li>
+<li><p>Look at the <strong>PRIV.SYSTEM</strong> finding. It seems that <code>SCOTT</code> has some powerful privileges. Does he have the DBA role? Good Question! DBSAT provides an answer to that (hint: PRIV.DBA finding)</p></li>
+<li><p>Where applicable, DBSAT also shows the grant path (if a privilege was directly granted or indirectly granted) to make it easier to spot wrong grants:</p>
+<ul>
+<li><strong>(D)</strong> next to a user means that user got that privilege via a direct grant</li>
+<li>If granted with admin option DBSAT will show it as <strong>(*)</strong></li>
+<li>If commonly granted (grant to a common user to all pdbs) it will show as a <strong>(C)</strong>, e.g.: "<code>SQL&gt; grant advisor to C##DBA_DEBRA container=all;</code>"</li>
+<li>Combinations are also possible <strong>(D)(*)</strong> means, directly granted with admin option</li></ul></li>
+<li><p>Scroll down to <strong>Account Management Privileges</strong> (you can also search for <strong>PRIV.ACCT</strong> in the browser):</p>
+<ul>
+<li>This finding will present <strong>direct</strong> or <strong>indirect grants</strong> of account management privileges – <code>ALTER USER, CREATE USER, DROP USER</code> – and will show the grant path</li>
+<li>Either <strong>direct as <code>JSCHAFFER: ALTER USER, CREATE USER, DROP USER</code></strong> or <strong>indirect as <code>SCOTT &lt;- APPROLE1 &lt;- APPROLE2 &lt;- APPROLE3 &lt;- DBA: ALTER USER, CREATE USER, DROP USER</code></strong></li>
+<li><code>SCOTT</code> received those privileges via the <code>DBA</code> grant to <code>APPROLE3</code>, that was granted to <code>APPROLE2</code> and then to <code>APPROLE1</code></li>
+<li>Finally, <code>APPROLE1</code> was granted to <code>SCOTT</code></li></ul>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-017.png" alt=""></figure></p></li>
+<li><p>Let’s have a look at another example: this time on <strong>DBA Role</strong> – <strong>PRIV.DBA</strong></p>
+<p>Scroll down or search:</p>
+<ul>
+<li><p>Database User Accounts <code>DBA_DEBRA, DBA_HARVEY, DBA_NICOLE, DMS_ADMIN, EVIL_RICH, JTAYLOR, MASKING_ADMIN, SCOTT</code> have been granted the powerful <code>DBA</code> Role</p></li>
+<li><p>Do these users need it? This is something that DBSAT can’t define as it lacks organizational and processes awareness</p></li>
+<li><p>That is why it is marked for review (Status = Evaluate)</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-018.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p></li>
+<li><p>As a best practice the usage of the out-of-the-box DBA role should be avoided</p></li>
+<li><p>Customers are encouraged to create their own DBA-like role with the exact set of privileges required for the administrators to execute their daily tasks</p></li></ul></li>
+<li><p>We have spent some time now looking into users, privileges, and roles. What about "Authorization Control"? Click <strong>TOP</strong> and in the summary table go to <strong>Authorization Control</strong></p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-019.png" alt=""></figure></p>
+<ul>
+<li><p>The <strong>AUTH.DV</strong> Finding is marked Blue (Advisory) as it presents an opportunity for improvement. Database Vault (DBV) enables to define Realms around sensitive data to prevent unauthorized access, even from privileged users. Database Vault also enables to control command execution according to a particular factor(s). As an example, you can disable <code>DROP TABLE</code> in your production database or <code>ALTER SYSTEM</code> if not coming from a specific <code>IP ADDRESS</code> or day/time of day.</p></li>
+<li><p>Database Vault may help address the Articles and Recitals mentioned above: <strong>DBV help address GDPR topics related to pseudonymization, restriction of processing and security of processing</strong></p></li>
+<li><p><strong>AUTH.PRIV</strong> relates to Privilege Analysis: this finding is showing that <code>DBSAT_ADMIN</code> and <code>PA_ADMIN</code> can start the capture process. However it was never run!</p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li><p>Privilege Analysis was first introduced with Oracle Database 12c and licensed as part of the Oracle Database Vault option</p></li>
+<li><p>Since then, Privilege Analysis has been used by many customers to reduce their attack surface area by helping them implement least privilege model</p></li>
+<li><p><strong>Privilege Analysis is now included with Oracle Database Enterprise Edition for no additional license fee</strong>. This change applies to all supported versions of the Oracle Database</p>
+<p>Privilege Analysis allows to:</p>
+<ul>
+<li>Report on actual privileges and roles used in the database, e.g. to capture privilege and role usage for a period and report on the usage</li>
+<li>Identify unused privileges and roles by users and applications, e.g. Privileges used by DBA</li>
+<li>Reduce risk by helping enforce least privilege for users and applications</li></ul></li></ul></li></ul></li>
+<li><p>Go to <strong>Fine-Grained Access Control</strong> – CTRL + F <strong>ACCESS.REDACT</strong></p>
+<ul>
+<li>This section displays information on Data Redaction, VPD, RAS Policies, Label Security and Transparent Sensitive Data Protection (TSDP) policies</li>
+<li>In case there are policies in place, these findings will show them</li>
+<li>Users not impacted by policies and that can manage or create them are listed in the findings</li></ul>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-020.png" alt=""></figure></p></li>
+<li><p>Have a look and when finished move to the next section <strong>Auditing</strong></p>
+<ul>
+<li>There are Unified Audit trail records</li>
+<li>To know more about the actual auditing policies in place, we need to have a look at the next findings</li>
+<li>Just enabling auditing does not generate any audit records</li>
+<li>Audit policies need to be in place</li></ul>
+<p><strong>Note</strong>: When <strong>Unified Audit</strong> is in place, all information about Traditional Auditing is ignored and it is not displayed in the findings</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-021.png" alt=""></figure></p></li>
+<li><p>Moving to the next finding – <strong>AUDIT.ADMIN</strong> – and we find out that auditing for administrative actions by <code>SYS</code> is not being performed</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-022.png" alt=""></figure></p></li>
+<li><p>Scroll down to <strong>Data Encryption</strong> – CTRL + F <strong>CRYPT.TDE</strong></p>
+<ul>
+<li><p>No encrypted tablespaces and no encrypted columns</p></li>
+<li><p>Is this database storing sensitive data? Is the data it holds subject to any regulation? Make sure that you understand the data that it is stored in your databases</p></li>
+<li><p>If it's sensitive and subject to any regulation, DBSAT Discoverer can help gather more details about the sensitive data in this database:
+As an example, GDPR considers encryption as one of the core techniques to render the data unintelligible to any person who is not authorized to access the personal data</p>
+<pre><code class="hljs typescript"><span class="hljs-string">"[...] the controller, and the processor shall implement appropriate technical and organisational measures, to ensure a level of security appropriate to the risk, including inter alia, as appropriate: (a) The pseudonymisation and encryption of personal data [...]"</span> (GDPR - Article <span class="hljs-number">32</span>)
+</code></pre></li>
+<li><p>We will discover sensitive data with DBSAT Discoverer in one of the next labs</p></li></ul>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-023.png" alt=""></figure></p></li>
+<li><p>Let’s get to the next section – <strong>Database Configuration</strong>- and have a look at some of the findings. This section starts with an informational table that provides a summary of relevant security-related database initialization parameters</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-024.png" alt=""></figure></p></li>
+<li><p>Scroll down or search for <strong>CONF.DIR</strong>: it's also marked as posing a <strong>Medium Risk</strong></p>
+<ul>
+<li><p>A special look needs to be taken into these <strong>DIRECTORY</strong> Objects as they allow access to the server's file system from PL/SQL code within the database</p></li>
+<li><p>Access to files that are used by the database kernel itself should not be permitted. <strong>Directories with both write and execute</strong> will be flagged</p></li>
+<li><p>Make sure all DIRECTORY objects are needed and for the ones that are, point them to other directories rather than inside <code>$ORACLE_HOME</code>, <code>$ORACLE_BASE</code></p>
+<p><strong>Note</strong>:</p></li>
+<li><p>This finding detail list all the directories (DIRECTORY objects) in the database (17) and then the directories that pose risk</p></li>
+<li><p>In this particular case, the last line of the details show "<code>Access to $ORACLE_HOME: ORACLE_HOME</code>", meaning that the DIRECTORY object that point to <code>$ORACLE_HOME</code> path is called "<code>ORACLE_HOME</code>"</p></li></ul>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-025.png" alt=""></figure></p></li>
+<li><p>No backups were found in the past 90 days</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-026.png" alt=""></figure></p></li>
+<li><p>Click [<strong>TOP</strong>] on the navigation panel (bottom right)</p></li>
+<li><p>Let’s have a look at the "<strong>Operating System</strong>" section and search for the finding marked as "<strong>Medium Risk</strong> (orange line). Click the "Operating System" link in the Summary table</p></li>
+<li><p>Scroll down to <strong>"OS.FILES"</strong>. In this finding, DBSAT will identified operating system file permissions that are wrongly set</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-027.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>In this case, 10 files have wrong permission settings</li>
+<li>Make sure OS file permissions are rightly setup to avoid having database binaries and files modified by users other than the <code>ORACLE_HOME</code> owner</li></ul></li>
+<li><p><strong>Congratulations, so far you have learned how to use DBSAT collector and reporter to Assess your Database Security!</strong></p></li>
+</ol></section>
+
+
+<section><div name="STEP7:DiscoverSensitiveData" data-unique="STEP7:DiscoverSensitiveData"></div><h2 id="step7discoversensitivedata" class="minus" tabindex="0"><strong>STEP 7</strong>: Discover Sensitive Data</h2><p style="">In this exercise, you will learn how to execute DBSAT discoverer. DBSAT discoverer will connect to the database and collect data needed for analysis based on settings specified in the configuration and sensitive pattern files.</p><ol style="">
+<li><p>Go to the scripts directory</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs bash"><span class="copy-code"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$DBSEC_LABS</span>/dbsat/dbsat221/Discover/conf</span></code></pre></li>
+<li><p>Copy the provided <code>sample_dbsat.config</code>, make the copy writable and open it for editing</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">cp sample_dbsat.<span class="hljs-built_in">config</span> dbsat.<span class="hljs-built_in">config</span>
+chmod +w dbsat.<span class="hljs-built_in">config</span>
+vi dbsat.<span class="hljs-built_in">config</span></span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-028.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>The configuration file includes comments that should be sufficient to understand what the various parameters do</li>
+<li>In summary, the <strong>dbsat.config</strong> file is where you can set up the:<ul>
+<li>Database connection details</li>
+<li>SSL parameters</li>
+<li>Discovery parameters</li>
+<li>Sensitive Categories and related risk level</li></ul></li></ul></li>
+<li><p>Change the following parameter to:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs ini"><span class="copy-code"><span class="hljs-attr">DB_SERVICE_NAME</span> = pdb1</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-029.png" alt=""></figure></p>
+<p><strong>Note</strong>: When using "vi", you can type "i" to enter insert mode and edit the file, and don't forget to save it by typing "<code>:wq![Enter]</code>"</p></li>
+<li><p>Save the file and go back to the shell</p></li>
+<li><p>Go back to the terminal and change directory to the dbsat home:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs bash"><span class="copy-code"><span class="hljs-built_in">cd</span> ../..</span></code></pre></li>
+<li><p>Execute the DBSAT discoverer:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">./dbsat discover -c Discover/conf/dbsat.<span class="hljs-built_in">config</span> pdb1_dbsat</span></code></pre></li>
+<li><p>Enter <em><code>DBSAT_ADMIN</code></em> as the username and "<em><code>Oracle123</code></em>" as the password</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">DBSAT_ADMIN</span></code></pre>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">Oracle123</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-030.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>At the end of the process, you’ll be asked to provide a password twice (please use "<em><code>Oracle123</code></em>")</li>
+<li>A file named <code>pdb1_dbsat_report.zip</code> is created in the <strong>current directory</strong></li></ul></li>
+<li><p>Unzip the file and check the contents by opening the HTML report in firefox</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">unzip</span> pdb<span class="hljs-number">1</span>_dbsat_report.zip</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-031.png" alt=""></figure></p></li>
+<li><p>As we are not using a desktop environment in this lab, copy the html file to the glassfish server directory by executing the script. This will make the html report accessible by your laptop browser</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">. ../dbsat_use_glassfish_webserver.sh</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-032.png" alt=""></figure></p>
+<p><strong>Note</strong>: This script will copy the html report to the glassfish webserver to make it easier for you to see the report</p></li>
+<li><p>Open your web browser, copy-paste the URL provided for the discoverer html report as the output, and you should see the <strong>Database Sensitive Data Assessment</strong> report as shown below:</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-033.png" alt=""></figure></p>
+<p><strong>Note</strong>: For real life cases you won’t need to copy file to glassfish, just unzip the files and open the html!</p></li>
+</ol></section>
+
+
+<section><div name="STEP8:AnalyzetheDiscovererReportSummary" data-unique="STEP8:AnalyzetheDiscovererReportSummary"></div><h2 id="step8analyzethediscovererreportsummary" class="minus" tabindex="0"><strong>STEP 8</strong>: Analyze the Discoverer Report - Summary</h2><p style="">In this exercise, you will learn how to analyze the <strong>Sensitive Data Assessment Report</strong>. We will dive into the different sections of the report and in subsequent exercises in more detail about the value the discovery parameters provide. Please take a couple of minutes to scroll through the HTML report (you can use the navigation arrows at the bottom right to navigate between different sections)</p><ol style="">
+<li><p>Initial Section</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-034.png" alt=""></figure></p></li>
+<li><p>At the top of the report, you will find information about the Discoverer run details as the Date of DBSAT Report Generation along with the DBSAT Discoverer version</p></li>
+<li><p>Follows the <strong>Database Identity</strong> information where you will find details about the target database, but this section may vary depending on whether dbsat connects to a non-CDB, CDB or PDB</p></li>
+<li><p>Then the Discovery Parameters table. The Discover Parameters table shows the parameters in use from the <code>dbsat.config</code> file:</p>
+<ul>
+<li><p><strong>Schemas Scope=ALL</strong></p>
+<ul>
+<li>Enables to choose if the search takes all schemas into account (except <code>SYS</code>, <code>SYSTEM</code> and other Oracle maintained schemas) or a limited set of comma-separated schemas</li>
+<li>By default, <code>ALL</code> will target all schemas and will discover accordingly</li></ul></li>
+<li><p><strong>Exclusion List File = NONE</strong></p>
+<ul>
+<li>Allows to exclude from the results all tables from a schema (<code>schemaD</code>), a whole table (<code>schemaA.tableA</code>), or certain columns (<code>schemaA.tableB.columnA ; schemaB.tableA.columnC</code>)</li></ul></li>
+<li><p><strong>Minimum Rows Count = [1 (default)]</strong></p>
+<ul>
+<li>Exclude tables with less than X rows from the result set. This enables to exclude tables with less than a certain number of rows</li>
+<li>This argument is used to define the weight of tables to be considered by the discoverer and it enables to produce a smaller and more focused report</li></ul></li>
+<li><p><strong>Pattern File(s) = [sensitive.ini (default), other.ini, …]</strong></p>
+<ul>
+<li>By default, <code>sensitive_en.ini</code> is used, and it contains patterns in English and will look for English based sensitive columns/comments</li>
+<li>This parameter enables the end user to choose which sensitive pattern files to add to the search</li>
+<li>If you want to search the data model in other languages, please reach out to your Oracle Account Manager</li>
+<li>Oracle can help you to get a head start by providing sample pattern files in other languages to create your own pattern files</li></ul>
+<p><strong>Note</strong>: Pattern files need to be located in the same directory sat the <code>dbsat.config</code> file</p></li></ul></li>
+<li><p>Go to the next section, <strong>Summary Table</strong> to see, organized by Sensitive Category, the number of tables, the number of columns and the number of rows</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-035.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>Keep in mind that one Table might contain columns/or column comments that might match more than one category, and that makes the total for <strong>#Sensitive Tables</strong> and <strong>#Sensitive Rows</strong> not to add up</li>
+<li>In the Total line, DBSAT presents unique number of tables and unique number of rows</li></ul></li>
+<li><p>Go to the next section, <strong>Sensitive Data</strong> to see a list of findings comprised of:</p>
+<ul>
+<li><strong>Risk Level</strong> – High Risk, Medium Risk, and Low Risk</li>
+<li><strong>Summary</strong> – A brief summary of what was found - the number of schemas or tables/columns</li>
+<li><strong>Location</strong> – In which <code>SCHEMA.TABLE</code> sensitive data was found</li></ul>
+<p>Sample findings:</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-036.png" alt=""></figure></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>The first one lists the Schemas with Sensitive Data and then follows, by Risk Level, a recommendation on which security controls should be in place to protect this type of data followed by findings per Sensitive Category</li>
+<li>As you can see in the example below, the report shows a recommendation after <strong>Risk Level: High Risk</strong> and then <strong>Tables Detected within Sensitive Category: Personal Financial Info – Card Info</strong></li></ul></li>
+<li><p>Go to <strong>Schema View</strong> section, to get the <strong>Schema View</strong>. The <strong>Table Summary</strong> shows the list of Schemas, Table names, number of total columns and sensitive columns, along with the number of rows and Sensitive Category</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-037.png" alt=""></figure></p></li>
+<li><p>Then the list of <strong>Sensitive Column Details</strong> with the Schema Name, Table Name, Column Name, Sensitive Category and Sensitive Type details and Risk Level</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-038.png" alt=""></figure></p></li>
+<li><p>DBSAT helped discovering Sensitive Types in different categories!</p>
+<p><strong>Note</strong>: DBSAT discoverer csv output file can be used to help Oracle Audit Vault and Database Firewall understand what sensitive data you have and provide you with reports on who is accessing sensitive data – Privacy reports</p></li>
+</ol></section>
+
+
+<section><div name="STEP9:AdvancedDiscovererGettingintodbsatconfigDiscoveryparameters" data-unique="STEP9:AdvancedDiscovererGettingintodbsatconfigDiscoveryparameters"></div><h2 id="step9advanceddiscoverergettingintodbsatconfigdiscoveryparameters" class="minus" tabindex="0"><strong>STEP 9</strong>: Advanced Discoverer - Getting into dbsat.config Discovery parameters</h2><p style="">In this exercise, you will learn how <strong>dbsat.config</strong> parameters determine the behavior of DBSAT Discoverer:
+    - Use the <code>EXCLUDE_LIST_FILE</code> parameter to exclude a column from the report
+    - Use the <code>SCHEMA_SCOPE</code> parameter to focus the analysis on a specific schema
+    - Use the <code>MINROWS</code> parameter to exclude tables that have less than 5 rows - this can be useful to exclude tables based on the number of rows</p><ol style="">
+<li><p>After reviewing the report (and in practice should review the actual table data), it is clear that DBSAT reported the column <code>LAST_INS_CLAIM</code> from table <code>HCM1.SUPPLEMENTAL_DATA</code> as containing <strong>Healthcare Provider</strong> data when it does not</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-039.png" alt=""></figure></p>
+<p><strong>Note</strong>: Let’s exclude the false positive by leveraging the <strong>Fully Qualified Column Name (FQCN)</strong> that is in the csv generated report and the <code>EXCLUSION_LIST_FILE</code> parameter in dbsat.config</p></li>
+<li><p>The provided environment does not contain any UI tool to view CSV files. For complete understanding and review of the generated CSV, it’s advisable that you open the file with a proper tool (LibreOffice, MS Excel, etc.). You can also by copy the csv back to your laptop and open it with a spreadsheet reader</p></li>
+<li><p>For simplicity, you can view the content of the csv by typing on the command line:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code"><span class="hljs-keyword">column</span> <span class="hljs-operator">-</span>s, <span class="hljs-operator">-</span>t <span class="hljs-operator">&lt;</span> pdb1_dbsat_discover.csv <span class="hljs-operator">|</span>grep LAST_INS_CLAIM</span></code></pre></li>
+<li><p>The <strong>FQCN</strong> for this particular column, as displayed above, is <code>HCM1.SUPPLEMENTAL_DATA.LAST_INS_CLAIM</code></p></li>
+<li><p>Select the <strong>FQCN</strong> value <em><code>HCM1.SUPPLEMENTAL_DATA.LAST_INS_CLAIM</code></em> and copy it to the clipboard</p></li>
+<li><p>Create a file called <strong>exclude.ini</strong></p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs nginx"><span class="copy-code"><span class="hljs-attribute">vi</span> Discover/conf/exclude.ini</span></code></pre></li>
+<li><p>Paste the copied value and you should see this:</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-040.png" alt=""></figure></p></li>
+<li><p>Save the file by typing "<code>:wq![Enter]</code>"</p></li>
+<li><p>Open the dbsat.config file and set the parameter <em><code>EXCLUSION_LIST_FILE = exclude.ini</code></em></p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">vi Discover/conf/dbsat.<span class="hljs-built_in">config</span></span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-041.png" alt=""></figure></p></li>
+<li><p>Save the file</p></li>
+<li><p>Rerun DBSAT Discoverer: Append "<em><code>_v2</code></em>" to the filename</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">./dbsat discover -c Discover/conf/dbsat.<span class="hljs-built_in">config</span> pdb1_dbsat_v2</span></code></pre></li>
+<li><p>Unzip the file</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">unzip</span> pdb<span class="hljs-number">1</span>_dbsat_v<span class="hljs-number">2</span>_report.zip</span></code></pre></li>
+<li><p>As we are not using a desktop environment in this lab, copy the html file to the glassfish server directory by executing the script. This will make the html report accessible in the glassfish application server and make it reacheable by your laptop browser</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">. ../dbsat_use_glassfish_webserver.sh</span></code></pre>
+<p><strong>Note</strong>: This script will copy the html report to the glassfish webserver to make it easier for you to see the report</p></li>
+<li><p>You should see this is the output:</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">Start</span> Glassfish...
+
+<span class="hljs-attribute">Starting</span> the Glassfish application...
+
+<span class="hljs-attribute">Waiting</span> for domain<span class="hljs-number">1</span> to start ..........
+<span class="hljs-attribute">Successfully</span> started the domain : domain<span class="hljs-number">1</span>
+<span class="hljs-attribute">domain</span>  Location: /u<span class="hljs-number">01</span>/app/glassfish/glassfish<span class="hljs-number">4</span>/glassfish/domains/domain<span class="hljs-number">1</span>
+<span class="hljs-attribute">Log</span> File: /u<span class="hljs-number">01</span>/app/glassfish/glassfish<span class="hljs-number">4</span>/glassfish/domains/domain<span class="hljs-number">1</span>/logs/server.log
+<span class="hljs-attribute">Admin</span> Port: <span class="hljs-number">4848</span>
+<span class="hljs-attribute">Command</span> start-domain executed successfully.
+
+<span class="hljs-attribute">Make</span> a directory in the Glassfish HR app for the DBSAT HTML file...
+
+
+<span class="hljs-attribute">Copy</span> the .html files to our new Glassfish DBSAT directory...
+
+
+<span class="hljs-attribute">Use</span> your local browser to view it at:
+
+<span class="hljs-attribute">http</span>://&lt;DBSec_Lab_Public_IP&gt;:<span class="hljs-number">8080</span>/hr_prod_pdb<span class="hljs-number">1</span>/dbsat/pdb<span class="hljs-number">1</span>_dbsat_discover.html
+<span class="hljs-attribute">http</span>://&lt;DBSec_Lab_Public_IP&gt;:<span class="hljs-number">8080</span>/hr_prod_pdb<span class="hljs-number">1</span>/dbsat/pdb<span class="hljs-number">1</span>_dbsat_v<span class="hljs-number">2</span>_discover.html
+<span class="hljs-attribute">http</span>://&lt;DBSec_Lab_Public_IP&gt;:<span class="hljs-number">8080</span>/hr_prod_pdb<span class="hljs-number">1</span>/dbsat/pdbhol_report.html
+</code></pre></li>
+<li><p>Open your browser of choice, and copy-paste the URL provided as the output by replacing <em><code>&lt;DBSec_Lab_Public_IP&gt;</code></em> in the link by <strong>your DBSecLab VM Public IP address</strong></p></li>
+<li><p>Search for <code>LAST_INS_CLAIM</code> or the <code>SUPPLEMENTAL_DATA</code> table, and it is now gone (it's an easy way to remove false positives from the end report)</p></li>
+<li><p>Let have a look at the <code>SCHEMA_SCOPE</code> and <code>MINROWS</code> parameters:</p>
+<ul>
+<li><code>SCHEMA_SCOPE</code> is particularly useful if you know beforehand which schemas to scan for sensitive data as it will allow for a more targeted run</li>
+<li><code>MINROWS</code> is useful to exclude empty tables (by default it is excluding as minrows=1) or reference tables</li></ul></li>
+<li><p>Let’s make a DBSAT Discoverer run just for the HR schema and exclude tables with less than 11 rows. This will exclude the <code>JOB_HISTORY</code> table: search the report for the <code>JOB_HISTORY</code> table (<code>hint: Schema view &gt; Table Summary</code>) to validate that it has 10 rows</p>
+<ul>
+<li><p>Edit the configuration file and add change the following variables:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">vi Discover/conf/dbsat.<span class="hljs-built_in">config</span></span></code></pre></li>
+<li><p>Set <em><code>SCHEMAS_SCOPE = HR</code></em> and <em><code>MINROWS = 11</code></em></p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-042.png" alt=""></figure></p></li>
+<li><p>Save the file and run again. Append "<em><code>_v3</code></em>" to the filename</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">./dbsat discover -c Discover/conf/dbsat.<span class="hljs-built_in">config</span> pdb1_dbsat_v3</span></code></pre></li></ul></li>
+<li><p>Unzip the file</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">unzip</span> pdb<span class="hljs-number">1</span>_dbsat_v<span class="hljs-number">3</span>_report.zip</span></code></pre></li>
+<li><p>Make the file available using Glassfish:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">. ../dbsat_use_glassfish_webserver.sh</span></code></pre></li>
+<li><p>Open the following link in your browser: <em><code>http://&lt;DBSec_Lab_Public_IP&gt;:8080/hr_prod_pdb1/dbsat/pdb1_dbsat_v3_discover.html</code></em></p></li>
+<li><p>You should see a smaller report focused just on the <code>HR</code> schema and that excludes the <code>JOB_HISTORY</code> table</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-043.png" alt=""></figure></p></li>
+</ol></section>
+
+
+<section><div name="STEP10:AdvancedDiscovererGettingintoPatternfilesSensitiveTypesandCategories" data-unique="STEP10:AdvancedDiscovererGettingintoPatternfilesSensitiveTypesandCategories"></div><h2 id="step10advanceddiscoverergettingintopatternfilessensitivetypesandcategories" class="minus" tabindex="0"><strong>STEP 10</strong>: Advanced Discoverer - Getting into Pattern files, Sensitive Types, and Categories</h2><ol style="">
+<li><p>Let's start by adding some sample data to work with in the next exercise. For that you will create the schema <code>FINACME</code> and insert some sample <strong>Company Financial Information</strong></p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code">sqlplus <span class="hljs-keyword">system</span><span class="hljs-operator">/</span>Oracle123<span class="hljs-variable">@pdb1</span></span></code></pre></li>
+<li><p>Carefully copy/paste the code below and <strong>make sure that all statements execute successfully!</strong></p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code"><span class="hljs-keyword">drop</span> <span class="hljs-keyword">user</span> finacme cascade;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">user</span> finacme identified <span class="hljs-keyword">by</span> oracle temporary tablespace temp <span class="hljs-keyword">default</span> tablespace users;
+<span class="hljs-keyword">grant</span> <span class="hljs-keyword">connect</span>, <span class="hljs-keyword">create</span> session <span class="hljs-keyword">to</span> finacme;
+<span class="hljs-keyword">grant</span> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">to</span> finacme;
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">user</span> finacme quota <span class="hljs-number">100</span>M <span class="hljs-keyword">on</span> USERS;
+
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> finacme.company_data (
+   company_id number <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">constraint</span> company_data_company_id_pk <span class="hljs-keyword">primary</span> key,
+   name varchar2(<span class="hljs-number">20</span>),
+   stadr varchar2(<span class="hljs-number">20</span>),
+   city varchar2(<span class="hljs-number">20</span>),
+   state varchar2(<span class="hljs-number">20</span>),
+   zip varchar2(<span class="hljs-number">20</span>),
+   tax_payer_id number(<span class="hljs-number">12</span>),
+   comp_profit number(<span class="hljs-number">20</span>),
+   fy_end_date <span class="hljs-type">date</span> );</span></code></pre></li>
+<li><p>Insert some records</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code"><span class="hljs-keyword">begin</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-number">1.</span><span class="hljs-number">.100</span> loop
+      <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> finacme.company_data <span class="hljs-keyword">values</span> (i, <span class="hljs-string">'Company '</span><span class="hljs-operator">||</span>initcap(dbms_random.string(<span class="hljs-string">'A'</span>, <span class="hljs-number">10</span>)) , <span class="hljs-string">'California'</span>, <span class="hljs-string">'San Francisco'</span>,<span class="hljs-string">'CA'</span>,<span class="hljs-string">'90000'</span><span class="hljs-operator">+</span>i,<span class="hljs-string">'19442350012'</span><span class="hljs-operator">+</span>i, i<span class="hljs-operator">+</span><span class="hljs-number">23440003</span>, sysdate<span class="hljs-operator">-</span>i);
+  <span class="hljs-keyword">end</span> loop;
+<span class="hljs-keyword">end</span>;
+<span class="hljs-operator">/</span>
+<span class="hljs-keyword">commit</span>;</span></code></pre></li>
+<li><p>Let’s gather table statistics</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code"><span class="hljs-keyword">exec</span> dbms_stats.gather_table_stats(<span class="hljs-string">'FINACME'</span>,<span class="hljs-string">'COMPANY_DATA'</span>);</span></code></pre></li>
+<li><p>Check the data to validate everything is ok</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code"><span class="hljs-keyword">set</span> pages <span class="hljs-number">120</span>
+<span class="hljs-keyword">set</span> lines <span class="hljs-number">150</span>
+
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> finacme.company_data;</span></code></pre></li>
+<li><p>Type "<em><code>exit</code></em>"</p></li>
+<li><p>You are all set now!</p></li>
+</ol></section>
+
+<section><div name="STEP11:AdvancedDiscovererPatternFiles" data-unique="STEP11:AdvancedDiscovererPatternFiles"></div><h2 id="step11advanceddiscovererpatternfiles" class="minus" tabindex="0"><strong>STEP 11</strong>: Advanced Discoverer - Pattern Files</h2><p style="">DBSAT uses pattern files and the regexes that are there defined to find sensitive data</p><ol style="">
+<li><p>To get you familiarized with what a pattern file is, open the <code>sensitive_en.ini</code> file that is inside the <strong>Discover/conf</strong> directory</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs perl"><span class="copy-code"><span class="hljs-keyword">chmod</span> +w Discover/conf/sensitive_en.ini
+vi Discover/conf/sensitive_en.ini</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-044.png" alt=""></figure></p>
+<ul>
+<li><p>A <strong>Pattern file</strong> contains a collection of Sensitive Types, their regular expressions, and Categories</p></li>
+<li><p>A <strong>Sensitive Type</strong> is defined as follows:</p>
+<pre><code class="hljs ini"><span class="hljs-section">[SENSITIVE_TYPE_NAME]</span>
+<span class="hljs-attr">COL_NAME_PATTERN</span> = the java regex to search column names
+<span class="hljs-attr">COL_COMMENT_PATTERN</span> = the java regex to search column comments
+<span class="hljs-attr">SENSITIVE_CATEGORY</span> = the Sensitive Category to which the sensitive type belongs to.
+</code></pre></li></ul></li>
+<li><p>Take your time and explore the file</p></li>
+<li><p>The first Sensitive Type in the file is the "<code>US SOCIAL SECURITY NUMBER (SSN)</code>" Sensitive Type is defined as the following:</p>
+<pre><code class="hljs ini"><span class="hljs-section">[US SOCIAL SECURITY NUMBER (SSN)]</span>
+<span class="hljs-attr">COL_NAME_PATTERN</span> = (^|[_-])SSN<span class="hljs-comment">#?($|[_-])|^SS#?$|(^|[_-])(SSN|SOC.*SEC.*).?(ID|NO|NUMBERS?|NUM|NBR|#)($|[_-])|^SOCIAL.?SEC(URITY)?#?$</span>
+<span class="hljs-attr">COL_COMMENT_PATTERN</span> = \bSS<span class="hljs-comment">#\b|\bSSN#?\b|SOCIAL SECURITY (ID|NUM|\bNO\b|NBR|#)</span>
+<span class="hljs-attr">SENSITIVE_CATEGORY</span> = Identification Info - National IDs
+</code></pre></li>
+<li><p>DBSAT will parse this pattern file and search for matches of the defined regexp patterns</p>
+<ul>
+<li>In this example, it will search <strong>column names</strong> that match the regex "<code>(^|[_-])SSN#?($|[_-])|^SS#?$|(^|[_-])(SSN|SOC.*SEC.*).?(ID|NO|NUMBERS?|NUM|NBR|#)($|[_-])|^SOCIAL.?SEC(URITY)?#?$</code>"</li>
+<li><strong>column comments</strong> that match "<code>\bSS#\b|\bSSN#?\b|SOCIAL SECURITY (ID|NUM|\bNO\b|NBR|#)</code>"</li>
+<li>and <strong>if a match is found</strong> it will report a finding in the "<code>Sensitive Category PII – NIDs (National Identifiers)</code>"</li></ul></li>
+<li><p>The <code>SENSITIVE_CATEGORY</code> parameter specifies the type/class of sensitive data</p>
+<p><strong>Note</strong>: This parameter needs to be defined in the dbsat.config file along with the risk level for that category</p></li>
+<li><p>Let’s have a second look at the <strong>dbsat.config</strong> file</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">cat Discover/conf/dbsat.<span class="hljs-built_in">config</span></span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-045.png" alt=""></figure></p></li>
+<li><p>As you can see, DBSAT includes out-of-the-box, <strong>19 Sensitive Categories</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Sensitive Category</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>Identification Info - National IDs</td>
+<td>PII – National Identifiers</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Identification Info - Personal IDs</td>
+<td>PII - Personal Identifiers (Names, Phone, Email)</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Biographic Info - Address</td>
+<td>Address related information</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Biographic Info - Family Data</td>
+<td>Names (Father, Mother, Child, Spouse, etc.)</td>
+</tr>
+<tr>
+<td>05</td>
+<td>Biographic Info - Extended PII</td>
+<td>Age, DOB, Place of Birth , Citizenship, etc.</td>
+</tr>
+<tr>
+<td>06</td>
+<td>Biographic Info - Restricted Data</td>
+<td>Photo, Fingerprint, Gender, Race, Religion</td>
+</tr>
+<tr>
+<td>07</td>
+<td>IT Info - User Data</td>
+<td>User, Password, Cookie, etc.</td>
+</tr>
+<tr>
+<td>08</td>
+<td>IT Info - Device Data</td>
+<td>Hostname, IP, MAC, IMEI</td>
+</tr>
+<tr>
+<td>09</td>
+<td>Financial Info - Card Data</td>
+<td>PCI DSS related data. Credit/Debit Card information</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Financial Info - Bank Data</td>
+<td>Bank account related data</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Health Info - Insurance Data</td>
+<td>Health Insurance Number and Provider</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Health Info - Provider Data</td>
+<td>Heatlh Care Provider, DEA Number, NPI</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Health Info - Medical Data</td>
+<td>Height, Weight, Blood type, Disability, Smoker, ICD Code, etc.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Job Info - Employee Data</td>
+<td>Employment-related data</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Job Info - Org Data</td>
+<td>Employee Organization Data</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Job Info - Compensation Data</td>
+<td>Income, Compensation, Stocks</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Academic Info - Student Data</td>
+<td>Student ID, Academic Degree, Field of Study</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Academic Info - Institution Data</td>
+<td>College/School Address and Name, Admission Date, Grad Date</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Academic Info - Performance Data</td>
+<td>Grades, Attendance and Disciplinary Records, etc.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>You can customize or add your own categories and risk levels</li>
+<li>After being defined in the dbsat.config file, they can be used in the pattern files Sensitive Type Categories</li></ul></li>
+<li><p>Let’s create a <strong>new Sensitive Category</strong> "<code>Financial Info – Company Data</code>" and revert other parameters</p>
+<ul>
+<li><p>Edit dbsat.config</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">vi Discover/conf/dbsat.<span class="hljs-built_in">config</span></span></code></pre></li>
+<li><p>Add the new Sensitive Category to the bottom of the file</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs nginx"><span class="copy-code"><span class="hljs-attribute">Financial</span> Info - Company Data = Medium Risk</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-046.png" alt=""></figure></p></li>
+<li><p>Let’s revert some parameters back to the original values to get more data in the report:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs properties"><span class="copy-code"><span class="hljs-attr">SCHEMAS_SCOPE</span> = <span class="hljs-string">ALL</span>
+<span class="hljs-attr">MINROWS</span> = <span class="hljs-string">1</span>
+<span class="hljs-attr">EXCLUSION_LIST_FILE</span> =</span><span class="hljs-string"></span></code></pre></li>
+<li><p>Save dbsat.config file</p></li></ul></li>
+<li><p>Now let’s add a <strong>PROFIT</strong> sensitive type to the new "<code>Financial Info - Company Data</code>" category</p>
+<ul>
+<li><p>Edit the <code>sensitive_en.ini</code> file:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs nginx"><span class="copy-code"><span class="hljs-attribute">vi</span>  Discover/conf/sensitive_en.ini</span></code></pre></li>
+<li><p>And add a the new Sensitive Type to the file as shown below</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs ini"><span class="copy-code"><span class="hljs-comment"># Financial Info - Company Data</span>
+<span class="hljs-section">[PROFIT]</span>
+<span class="hljs-attr">COL_NAME_PATTERN</span> = ^(?!.*(NON)).*PROFIT
+<span class="hljs-attr">COL_COMMENT_PATTERN</span> = ^(?!.*(NON)).*PROFIT
+<span class="hljs-attr">SENSITIVE_CATEGORY</span> = Financial Info - Company Data</span></code></pre></li>
+<li><p>Save the file and run again - Append "<em><code>_v4</code></em>" to the filename</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs lua"><span class="copy-code">./dbsat discover -c Discover/conf/dbsat.<span class="hljs-built_in">config</span> pdb1_dbsat_v4</span></code></pre></li></ul></li>
+<li><p>Unzip the report file</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">unzip</span> pdb<span class="hljs-number">1</span>_dbsat_v<span class="hljs-number">4</span>_report.zip</span></code></pre></li>
+<li><p>Make it available using Glassfish</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">. ../dbsat_use_glassfish_webserver.sh</span></code></pre></li>
+<li><p>Go to your web browser and open: <em><code>http://&lt;DBSec_Lab_Public_IP&gt;:8080/hr_prod_pdb1/dbsat/pdb1_dbsat_v4_discover.html</code></em></p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-047.png" alt=""></figure></p></li>
+<li><p>A bit down in the report, this:</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-048.png" alt=""></figure></p></li>
+<li><p>And in the <strong>Sensitive Column Details</strong> section of the report:</p>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-049.png" alt=""></figure></p></li>
+</ol></section>
+
+
+<section><div name="STEP12:ProcessingDBSATreportJSONoutput" data-unique="STEP12:ProcessingDBSATreportJSONoutput"></div><h2 id="step12processingdbsatreportjsonoutput" class="minus" tabindex="0"><strong>STEP 12</strong>: Processing DBSAT report JSON output</h2><p style="">In this exercise, you will be exposed to the DBSAT utilities ("<code>dbsat_diff</code>" &amp; "<code>dbsat_extract</code>"), the JSON output report, and how to get a relational view from it. The primary purpose of the JSON report is to open DBSAT reporter to integration with 3rd party tools. Another use case could be to build a model to load data from multiple databases and be able to compare/generate side-by-side reports.</p><p style=""><strong>Note</strong>: These sample utilities can be downloaded from My Oracle Support Doc <strong>ID 2138254.1</strong> but the zip file is included in the DBSec Lab VM image for your convenience</p><ol style="">
+<li><p>Go to the scripts directory</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs bash"><span class="copy-code"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$DBSEC_LABS</span>/dbsat</span></code></pre></li>
+<li><p>Unzip <code>dbsat_util.zip</code></p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">unzip</span> dbsat_util.zip -d dbsat<span class="hljs-number">221</span></span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-050.png" alt=""></figure></p></li>
+<li><p>Go to the DBSAT directory</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs bash"><span class="copy-code"><span class="hljs-built_in">cd</span> dbsat221</span></code></pre></li>
+<li><p>Using "<code>dbsat_extract</code>", extract findings by their identifiers</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs css"><span class="copy-code">python dbsat_extract -<span class="hljs-selector-tag">i</span> CRYPT<span class="hljs-selector-class">.TDE</span> -<span class="hljs-selector-tag">i</span> CONF<span class="hljs-selector-class">.PWDFILE</span> -v pdbhol_report<span class="hljs-selector-class">.json</span></span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-051.png" alt=""></figure></p>
+<p><strong>Note</strong>: this script extract <code>CRYPT.TDE</code> and <code>CONF.PWDFILE</code> findings from the previously generated <code>hol_report.json</code> file</p></li>
+<li><p>Using "<code>dbsat_diff</code>", compare two reports and find the differences</p>
+<ul>
+<li><p>You will need two different dbsat reporter output reports in JSON format for the command to produce useful output.
+You can do some configuration changes and run dbsat collect and report again so you can have two different reports to compare.
+As an example, generate a second report:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code">.<span class="hljs-operator">/</span>dbsat <span class="hljs-keyword">collect</span> dbsat_admin<span class="hljs-variable">@pdb1</span> pdbhol2</span></code></pre>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">./dbsat report pdbhol2</span></code></pre>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">unzip</span> pdbhol<span class="hljs-number">2</span>_report.zip</span></code></pre></li>
+<li><p>Run the "<code>dbsat_diff</code>" script:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">python</span> dbsat_diff pdbhol_report.json pdbhol<span class="hljs-number">2</span>_report.json</span></code></pre></li></ul>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-052.png" alt=""></figure></p></li>
+<li><p>Loading the JSON report into the database for further processing. In this simple case, we will load the JSON document into the Oracle Database and execute a query to get the findings in a relational view</p>
+<ul>
+<li><p>Connect as <em><code>DBA_DEBRA</code></em></p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs apache"><span class="copy-code"><span class="hljs-attribute">sqlplus</span> dba_debra/Oracle<span class="hljs-number">123</span>@pdb<span class="hljs-number">1</span></span></code></pre></li>
+<li><p>Create a directory object to read from the dbsat installation directory:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs php"><span class="copy-code">create <span class="hljs-keyword">or</span> replace <span class="hljs-built_in">directory</span> DBSAT_DIR <span class="hljs-keyword">as</span> <span class="hljs-string">'/home/oracle/DBSecLab/livelabs/dbsat/dbsat221'</span>;</span></code></pre></li>
+<li><p>Create a table to store the JSON report:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> DBSAT_FOO(
+    docname varchar2(<span class="hljs-number">32</span>),
+    doc <span class="hljs-type">CLOB</span> <span class="hljs-keyword">check</span> (DOC <span class="hljs-keyword">IS</span> JSON));</span></code></pre></li>
+<li><p>Insert the JSON report into the table:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> DBSAT_FOO <span class="hljs-keyword">values</span> (<span class="hljs-string">'pdbhol_report.json'</span>, bfilename(<span class="hljs-string">'DBSAT_DIR'</span>,<span class="hljs-string">'pdbhol_report.json'</span>));
+
+<span class="hljs-keyword">commit</span>;</span></code></pre></li>
+<li><p>Execute the following:</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs sql"><span class="copy-code">col docname format a17
+col title format a50
+col remarks format a60
+<span class="hljs-keyword">set</span> lines <span class="hljs-number">400</span>
+<span class="hljs-keyword">set</span> pages <span class="hljs-number">100</span>
+
+<span class="hljs-keyword">select</span> docname, severity, title, remarks
+  <span class="hljs-keyword">from</span> DBSAT_FOO, <span class="hljs-built_in">JSON_TABLE</span>(
+       doc,
+       <span class="hljs-string">'$[*].items[*]'</span> columns TYPE VARCHAR2(<span class="hljs-number">32</span>) PATH <span class="hljs-string">'$.type'</span>,
+       severity NUMBER PATH <span class="hljs-string">'$.severity'</span>,
+       title VARCHAR2(<span class="hljs-number">128</span>) PATH <span class="hljs-string">'$.title'</span>,
+       remarks VARCHAR2(<span class="hljs-number">4000</span>) PATH <span class="hljs-string">'$.remarks'</span> )
+ <span class="hljs-keyword">where</span> TYPE <span class="hljs-operator">=</span> <span class="hljs-string">'finding'</span>
+ <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> docname, severity
+ <span class="hljs-operator">/</span></span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-053.png" alt=""></figure></p></li>
+<li><p>Type "<em><code>exit</code></em>"</p></li></ul></li>
+</ol></section>
+
+
+
+<section><div name="STEP13:(Optional)UninstallingDBSAT" data-unique="STEP13:(Optional)UninstallingDBSAT"></div><h2 id="step13optionaluninstallingdbsat" class="minus" tabindex="0"><strong>STEP 13</strong>: (Optional) Uninstalling DBSAT</h2><ol style="">
+<li><p>Go to the scripts directory</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs bash"><span class="copy-code"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$DBSEC_LABS</span>/dbsat</span></code></pre></li>
+<li><p>Run the following script</p>
+<pre><button class="copy-button" title="Copy text to clipboard">Copy</button><code class="hljs"><span class="copy-code">./dbsat_uninstall.sh</span></code></pre>
+<p><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-054.png" alt=""></figure></p></li>
+</ol><p style="">You may now <a href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#next">proceed to the next lab</a>..</p></section>
+
+
+<section><div name="Appendix:AbouttheProduct" data-unique="Appendix:AbouttheProduct"></div><h2 id="appendixabouttheproduct" class="minus" tabindex="0"><strong>Appendix</strong>: About the Product</h2><h3 id="overview" style=""><strong>Overview</strong></h3><p style="">The Oracle Database Security Assessment Tool (DBSAT) helps identify sensitive data, analyzes database configurations, users, their entitlements and security policies to uncover security risks and improve the security posture of Oracle Databases within your organization.</p><p style="">You can use DBSAT to implement and enforce security best practices in your organization and accelerate compliance with regulations such as the EU GDPR.</p><p style=""><strong>Components of DBSAT and flow</strong></p><p style=""><figure><img src="./DB Security Basics _ Lab 5_ Database Assessment Tool (DBSAT)_files/dbsat-concept.png" alt=""></figure></p><p style="">DBSAT consists of three components, the DBSAT Collector, the DBSAT Reporter and the DBSAT Discoverer, that correspond to the functions of data collection, data analysis, and sensitive data discovery respectively:</p><ul style="">
+<li><p>The <strong>DBSAT Collector</strong> executes SQL queries and runs operating system commands to collect data from the system to be assessed. It does this primarily by querying database dictionary views. The collected data is written to a file that is used by the DBSAT Reporter in the analysis phase.</p></li>
+<li><p>The <strong>DBSAT Reporter</strong> analyzes the collected data and reports its findings and recommendations in multiple formats: HTML, Excel, JSON, and Text. The Reporter can run on any machine: PC, laptop, or server. You are not limited to running it on the same server as the Collector.</p></li>
+<li><p>The <strong>DBSAT Discoverer</strong> executes SQL queries and collects data from the system to be assessed, based on the settings specified in the configuration files. It does this primarily by querying database dictionary views. The collected data is then used to generate a Database Sensitive Data Assessment Report in HTML and CSV formats. The CSV report can be loaded into Oracle Audit Vault and Database Firewall to add sensitive data context to the new Data Privacy reports. For more information about this functionality, see Importing Sensitive Data Into AVDF Repository in the Oracle Audit Vault and Database Firewall Auditor's Guide.</p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>The Discoverer can run on any machine: PC, laptop, or server</li>
+<li>You are not limited to running the Discoverer on the database server or the same machine as the Collector and the Collector does not need to be run before executing DBSAT Discoverer</li></ul></li>
+</ul><p style="">DBSAT reports on existing sensitive data, the state of user accounts, role and privilege grants, and policies that control the use of various security features in the database.</p><p style=""><strong>DBSAT generates two types of reports</strong></p><ul style="">
+<li>Database Security Risk Assessment report</li>
+<li>Database Sensitive Data Assessment report</li>
+</ul><p style="">You can use report findings to:</p><ul style="">
+<li>Fix immediate short-term risks</li>
+<li>Implement a comprehensive security strategy</li>
+</ul><h3 id="benefitsofusingdbsat" style=""><strong>Benefits of using DBSAT</strong></h3><p style="">You can use DBSAT to:</p><ul style="">
+<li>Quickly identify sensitive data and security configuration errors in your databases</li>
+<li>Promote security best practices</li>
+<li>Improve the security posture of your Oracle Databases</li>
+<li>Reduce the attack surface and exposure to risk</li>
+<li>Provide input to auditors</li>
+</ul><p style="">After having executed 1000s of Database Security Assessments in our customers base, we have identified that the <strong>The Top 10 most common findings</strong> has proven to be:</p><ul style="">
+<li>No Database Security Policies / Strategy in place</li>
+<li>No patching/patch management policy in place</li>
+<li>No encryption of sensitive/regulated data</li>
+<li>No monitoring/auditing in place</li>
+<li>Over-privileged accounts; No personalized accounts; NO SoD</li>
+<li>Weak/inexistent password policies; Weak password management</li>
+<li>Data sent in the clear to third parties</li>
+<li>No OS hardening</li>
+<li>No sensitive data anonymization in production to DEV/TEST/Training/etc.</li>
+<li>Still some sample schemas in production environments out there</li>
+</ul></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section><div name="WanttoLearnMore?" data-unique="WanttoLearnMore?"></div><h2 id="wanttolearnmore" class="minus" tabindex="0">Want to Learn More?</h2><p style="">Technical Documentation:</p><ul style="">
+<li><a href="https://docs.oracle.com/en/database/oracle/security-assessment-tool/2.2/index.html" target="_blank">Oracle DBSAT 2.2</a></li>
+</ul></section>
+
+
+<section><div name="Acknowledgements" data-unique="Acknowledgements"></div><h2 id="acknowledgements" class="minus" tabindex="0">Acknowledgements</h2><ul style="">
+<li><strong>Author</strong> - Hakim Loumi, Database Security PM</li>
+<li><strong>Contributors</strong> - Pedro Lopes, Rene Fontcha</li>
+<li><strong>Last Updated By/Date</strong> - Hakim Loumi, Database Security PM - May 2021</li>
+</ul></section>
+<div id="modalWindow"><div id="modalCaption"></div><span id="modalClose">×</span><img id="modalImg"></div></article></main>
+        </div>
+    </div>
+
+      <footer class="hol-Footer">
+        <a class="hol-Footer-leftLink show" href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=init-start-env-freetier" title="Previous">Previous</a><a class="hol-Footer-topLink" href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=dbsat#top">Return to Top</a><a class="hol-Footer-rightLink show" href="https://oracle.github.io/learning-library/security-library/database/baseline/workshops/freetier/index.html?lab=nne" title="Next">Next</a>
+        <div id="footer-banner"><div class="footer-row">
+          <div class="footer-content"><ul class="footer-links">
+              <li><a href="https://docs.oracle.com/pls/topic/lookup?ctx=en/legal&amp;id=cpyr" target="_blank" aria-label="Open a new window to Oracle legal notices" data-lbl="copyright">© Oracle</a></li>
+              <li><a href="https://www.oracle.com/corporate/index.html" target="_blank" aria-label="Open a new window to learn more about oracle" data-lbl="about-oracle">About Oracle</a></li>
+              <li><a href="https://www.oracle.com/corporate/contact/" target="_blank" aria-label="Open a new window to contact oracle" data-lbl="contact-us">Contact Us</a></li>
+              <li class="footer-links-break"></li>
+              <li><a href="https://docs.oracle.com/en/browseall.html" target="_blank" aria-label="Open a new window to products a-z" data-lbl="products-a-z">Products A-Z</a></li>
+              <li><a href="https://www.oracle.com/legal/privacy/" target="_blank" aria-label="Open a new window to read more about Oracle terms of use and privacy" data-lbl="terms-of-use-and-privacy">Terms of Use &amp; Privacy</a></li>
+              <li><a href="https://www.oracle.com/legal/privacy/privacy-policy.html#11" target="_blank" aria-label="Open a new window to read more about managing Oracle cookie preferences" data-lbl="cookie-preferences">Cookie Preferences</a></li>
+              <li><a href="https://www.oracle.com/legal/privacy/marketing-cloud-data-cloud-privacy-policy.html#adchoices" target="_blank" aria-label="Open a new window to ad choices" data-lbl="ad-choices">Ad Choices</a></li>
+              <li class="footer-links-break"></li><li class="last"><a href="https://docs.oracle.com/pls/topic/lookup?ctx=en/legal&amp;id=cpyr" target="_blank" aria-label="Open a new window to Oracle legal notices" data-lbl="copyright">© Oracle</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+</body></html>
